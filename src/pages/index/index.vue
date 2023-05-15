@@ -41,7 +41,10 @@
         <view class="btn add-optional" @tap="addOptional">添加到自选</view>
       </view>
       <view class="my-optional">
-        <view class="optional-title">我的自选</view>
+        <view class="optional-title">
+          我的自选
+          <text class="tips" v-if="myOptionalList.length">有钱没地方花就去彩票店浪费钱吧</text>
+        </view>
         <view class="optional-list">
           <view v-for="(item, index) in myOptionalList" :key="index" class="item">
             <view class="number-box">
