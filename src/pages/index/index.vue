@@ -1,15 +1,14 @@
 <template>
   <view class="lottery-page">
     <view class="today">今天是 <text class="strong">{{getToday().todayString}}</text> <text class="strong">{{getToday().todayWeek}}</text></view>
-    <view class="today" v-if="lotteryTypeInfo().value">
-      今日玩法为 <text class="strong">{{lotteryTypeInfo().lable}}</text>
+    <view class="today" v-if="typeName">
+      今日规则为 <text class="strong">{{typeName}}</text>
       <text class="tips">20:00截止</text>
     </view>
-    <view class="today" v-else>今日周五，非开奖日，不要选！</view>
-    <view class="today" v-if="lotteryTypeInfo().value">
+    <view class="today">
       <view class="ball-container">
         <view class="list-title">
-          请在以下数字中选择{{redBallLength}}个数字，作为<text class="red">{{isUnionLotto ? '红球':'前区号码'}}</text>
+          请在以下数字中选择{{redBallLength}}个数字，作为<text class="red">{{isDoubleColorBallLotto ? '红球':'前区号码'}}</text>
         </view>
         <view class="balllist-box">
           <view
@@ -25,7 +24,7 @@
       </view>
       <view class="ball-container">
         <view class="list-title">
-          请在以下数字中选择{{blueBallLength}}个数字，作为<text class="blue">{{isUnionLotto ? '蓝球':'后区号码'}}</text>
+          请在以下数字中选择{{blueBallLength}}个数字，作为<text class="blue">{{isDoubleColorBallLotto ? '蓝球':'后区号码'}}</text>
         </view>
         <view class="balllist-box">
           <view
@@ -64,17 +63,24 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { lotteryTypeInfo, createRedBallList, createBlueBallList, getToday, pushValue, getArrayItems } from "../../utils/index";
+import { getLotteryName, lotteryTypeInfo, createRedBallList, createBlueBallList, getToday, pushValue, getArrayItems } from "../../utils/index";
 import dayjs from "dayjs";
 import './index.scss'
 import Taro, { useShareAppMessage,useShareTimeline } from '@tarojs/taro'
 
+
 const todayDate = dayjs().format('YYYY-MM-DD')
-const isUnionLotto = lotteryTypeInfo().value === 'UnionLotto'
-const redBallLength = isUnionLotto ? 6 : 5
-const blueBallLength = isUnionLotto ? 1 : 2
+const isDoubleColorBallLotto = lotteryTypeInfo().value === 'doubleColorBallLotto'
+const redBallLength = isDoubleColorBallLotto ? 6 : 5
+const blueBallLength = isDoubleColorBallLotto ? 1 : 2
 const redBallList = createRedBallList()
 const blueBallList = createBlueBallList()
+const typeName = ref('')
+const getTypeName = async () => {
+  const res = await getLotteryName(lotteryTypeInfo().value)
+  typeName.value = res
+}
+getTypeName()
 
 const myOptionalList = ref([])
 
@@ -92,9 +98,9 @@ const handleSelectBlue = (value) => {
 
 const addOptional = () => {
   if (currentOptional.red.length !== redBallLength) {
-    Taro.showToast({title: `${isUnionLotto ? '红球':'前区号码'}至少选择${redBallLength}个`, icon: 'none'})
+    Taro.showToast({title: `${isDoubleColorBallLotto ? '红球':'前区号码'}至少选择${redBallLength}个`, icon: 'none'})
   }else if (currentOptional.blue.length !== blueBallLength) {
-    Taro.showToast({title: `${isUnionLotto ? '蓝球':'后区号码'}至少选择${blueBallLength}个`, icon: 'none'})
+    Taro.showToast({title: `${isDoubleColorBallLotto ? '蓝球':'后区号码'}至少选择${blueBallLength}个`, icon: 'none'})
   } else {
     myOptionalList.value = JSON.parse(JSON.stringify([currentOptional, ...myOptionalList.value]))
     currentOptional.red = []

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import Taro from '@tarojs/taro'
 
 export const getToday = () => {
   const todayString = dayjs().format('YYYY-MM-DD')
@@ -32,18 +33,28 @@ export const getToday = () => {
   }
 }
 
+export const getLotteryName = async (type) => {
+  const res = await Taro.request({
+    url: 'https://www.fastmock.site/mock/cdab8e4efc448083855845a42a2ba97e/lottery/lottery/type', //仅为示例，并非真实的接口地址
+  })
+  const { data: { data } } = res
+  return data[type]
+}
+
+
+
 
 
 export const lotteryTypeInfo = () => {
   const todayWeek = dayjs().day()
   if ([2,4,7].includes(todayWeek)) {
     return {
-      value: 'UnionLotto',
+      value: 'doubleColorBallLotto',
       lable: 'Double Color Ball Lotto'
     }
   }else if([1,3,6].includes(todayWeek)) {
     return {
-      value: 'SuperLotto',
+      value: 'superLotto',
       lable: 'Super Lotto'
     }
   } else {
