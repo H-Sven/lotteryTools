@@ -36,15 +36,15 @@ export const getToday = () => {
 
 export const lotteryTypeInfo = () => {
   const todayWeek = dayjs().day()
-  if ([1,3,7].includes(todayWeek)) {
+  if ([2,4,7].includes(todayWeek)) {
     return {
       value: 'UnionLotto',
-      lable: '红蓝球'
+      lable: 'Double Color Ball Lotto'
     }
-  }else if([2,4,6].includes(todayWeek)) {
+  }else if([1,3,6].includes(todayWeek)) {
     return {
       value: 'SuperLotto',
-      lable: '大乐透'
+      lable: 'Super Lotto'
     }
   } else {
     return {

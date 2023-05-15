@@ -1,8 +1,11 @@
 <template>
   <view class="lottery-page">
     <view class="today">今天是 <text class="strong">{{getToday().todayString}}</text> <text class="strong">{{getToday().todayWeek}}</text></view>
-    <view class="today" v-if="lotteryTypeInfo().value">今日玩法为 <text class="strong">{{lotteryTypeInfo().lable}}</text></view>
-    <view class="today" v-else>今日非开奖日</view>
+    <view class="today" v-if="lotteryTypeInfo().value">
+      今日玩法为 <text class="strong">{{lotteryTypeInfo().lable}}</text>
+      <text class="tips">20:00截止</text>
+    </view>
+    <view class="today" v-else>今日周五，非开奖日，不要选！</view>
     <view class="today" v-if="lotteryTypeInfo().value">
       <view class="ball-container">
         <view class="list-title">
@@ -43,7 +46,7 @@
       <view class="my-optional">
         <view class="optional-title">
           我的自选
-          <text class="tips" v-if="myOptionalList.length">有钱没地方花就去彩票店浪费钱吧</text>
+          <text class="tips" v-if="myOptionalList.length">都是骗人的...</text>
         </view>
         <view class="optional-list">
           <view v-for="(item, index) in myOptionalList" :key="index" class="item">

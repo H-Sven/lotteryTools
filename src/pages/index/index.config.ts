@@ -1,5 +1,5 @@
 export default definePageConfig({
-  navigationBarTitleText: '选号助手',
+  navigationBarTitleText: '运气很好吗？',
   enableShareAppMessage: true,
   enableShareTimeline: true,
 })

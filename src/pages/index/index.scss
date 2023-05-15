@@ -104,10 +104,6 @@
         }
       }
     }
-    .tips {
-      font-size: 24px;
-      color: #ccc;
-    }
   }
 
   .red {
@@ -118,5 +114,10 @@
   }
   .strong {
     font-weight: 700;
+  }
+  .tips {
+    padding-left: 10px;
+    font-size: 24px !important;
+    color: #ccc !important;
   }
 }
