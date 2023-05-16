@@ -1,61 +1,67 @@
 <template>
   <view class="lottery-page">
     <view class="today">今天是 <text class="strong">{{getToday().todayString}}</text> <text class="strong">{{getToday().todayWeek}}</text></view>
-    <view class="today" v-if="typeName">
-      今日规则为 <text class="strong">{{typeName}}</text>
-      <text class="tips">20:00截止</text>
-    </view>
-    <view class="today">
-      <view class="ball-container">
-        <view class="list-title">
-          请在以下数字中选择{{redBallLength}}个数字，作为<text class="red">{{isDoubleColorBallLotto ? '红球':'前区号码'}}</text>
-        </view>
-        <view class="balllist-box">
-          <view
-            v-for="(item, index) in redBallList"
-            :key="index"
-            class="ball-item red-ball-item"
-            :class="{'active': currentOptional.red.includes(item)}"
-            @tap="handleSelectRed(item)"
-          >
-          {{item}}
-        </view>
-        </view>
+    <view v-if="typeName">
+      <view class="today">
+        今日规则为 <text class="strong">{{typeName}}</text>
+        <text class="tips">20:00截止</text>
       </view>
-      <view class="ball-container">
-        <view class="list-title">
-          请在以下数字中选择{{blueBallLength}}个数字，作为<text class="blue">{{isDoubleColorBallLotto ? '蓝球':'后区号码'}}</text>
+      <view class="today">
+        <view class="ball-container">
+          <view class="list-title">
+            请在以下数字中选择{{redBallLength}}个数字，作为<text class="red">{{isDoubleColorBallLotto ? '红球':'前区号码'}}</text>
+          </view>
+          <view class="balllist-box">
+            <view
+              v-for="(item, index) in redBallList"
+              :key="index"
+              class="ball-item red-ball-item"
+              :class="{'active': currentOptional.red.includes(item)}"
+              @tap="handleSelectRed(item)"
+            >
+            {{item}}
+          </view>
+          </view>
         </view>
-        <view class="balllist-box">
-          <view
-            v-for="(item, index) in blueBallList"
-            :key="index"
-            class="ball-item blue-ball-item"
-            :class="{'active': currentOptional.blue.includes(item)}"
-            @tap="handleSelectBlue(item)"
-          >
-          {{item}}
+        <view class="ball-container">
+          <view class="list-title">
+            请在以下数字中选择{{blueBallLength}}个数字，作为<text class="blue">{{isDoubleColorBallLotto ? '蓝球':'后区号码'}}</text>
+          </view>
+          <view class="balllist-box">
+            <view
+              v-for="(item, index) in blueBallList"
+              :key="index"
+              class="ball-item blue-ball-item"
+              :class="{'active': currentOptional.blue.includes(item)}"
+              @tap="handleSelectBlue(item)"
+            >
+            {{item}}
+          </view>
+          </view>
         </view>
+        <view class="footer-btn">
+          <view class="btn random-optional" @tap="randomOptional">随机一组</view>
+          <view class="btn add-optional" @tap="addOptional">添加到自选</view>
         </view>
-      </view>
-      <view class="footer-btn">
-        <view class="btn random-optional" @tap="randomOptional">随机一组</view>
-        <view class="btn add-optional" @tap="addOptional">添加到自选</view>
-      </view>
-      <view class="my-optional">
-        <view class="optional-title">
-          我的自选
-        </view>
-        <view class="optional-list">
-          <view v-for="(item, index) in myOptionalList" :key="index" class="item">
-            <view class="number-box">
-              <view v-for="number in item.red" :key="number" class="number red-number">{{number}}</view>
-              <view v-for="number in item.blue" :key="number" class="number blue-number">{{number}}</view>
+        <view class="my-optional">
+          <view class="optional-title">
+            我的自选
+          </view>
+          <view class="optional-list">
+            <view v-for="(item, index) in myOptionalList" :key="index" class="item">
+              <view class="number-box">
+                <view v-for="number in item.red" :key="number" class="number red-number">{{number}}</view>
+                <view v-for="number in item.blue" :key="number" class="number blue-number">{{number}}</view>
+              </view>
+              <view class="delete" @tap="handleDelete(index)">删除</view>
             </view>
-            <view class="delete" @tap="handleDelete(index)">删除</view>
           </view>
         </view>
       </view>
+    </view>
+    <!-- 审核用 -->
+    <view v-else class="ball-container">
+      距离过年还剩<text class="strong">{{dayjs('2024-01-01').diff(todayDate, 'day')}}</text>天
     </view>
   </view>
 </template>
