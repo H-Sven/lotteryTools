@@ -3,8 +3,8 @@
     <view class="today">今天是 <text class="strong">{{getToday().todayString}}</text> <text class="strong">{{getToday().todayWeek}}</text></view>
     <view v-if="typeName">
       <view class="today">
-        今日规则为 <text class="strong">{{typeName}}</text>
-        <text class="tips">20:00截止</text>
+        今日开奖彩种为 <text class="strong">{{typeName}}</text>
+        <!-- <text class="tips">20:00截止</text> -->
       </view>
       <view class="today">
         <view class="ball-container">
