@@ -60,7 +60,7 @@
       </view>
     </view>
     <!-- 审核用 -->
-    <view v-else class="ball-container">
+    <view v-else class="sk-container">
       距离过年还剩<text class="strong">{{dayjs('2024-01-01').diff(todayDate, 'day')}}</text>天
     </view>
   </view>
