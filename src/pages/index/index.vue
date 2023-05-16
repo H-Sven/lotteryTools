@@ -45,7 +45,6 @@
       <view class="my-optional">
         <view class="optional-title">
           我的自选
-          <text class="tips" v-if="myOptionalList.length">都是骗人的...</text>
         </view>
         <view class="optional-list">
           <view v-for="(item, index) in myOptionalList" :key="index" class="item">

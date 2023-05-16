@@ -70,7 +70,7 @@ export const createNumberList = (lenght: number) => {
 }
 
 export const createRedBallList = () => {
-  if (lotteryTypeInfo().value === 'UnionLotto') {
+  if (lotteryTypeInfo().value === 'doubleColorBallLotto') {
     return createNumberList(33)
   }else {
     return createNumberList(35)
@@ -78,7 +78,7 @@ export const createRedBallList = () => {
 }
 
 export const createBlueBallList = () => {
-  if (lotteryTypeInfo().value === 'UnionLotto') {
+  if (lotteryTypeInfo().value === 'doubleColorBallLotto') {
     return createNumberList(16)
   }else {
     return createNumberList(12)
