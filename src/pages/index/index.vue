@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive,watch } from 'vue'
 import { getLotteryName, lotteryTypeInfo, createRedBallList, createBlueBallList, getToday, pushValue, getArrayItems } from "../../utils/index";
 import dayjs from "dayjs";
 import './index.scss'
@@ -86,6 +86,11 @@ const myOptionalList = ref([])
 const currentOptional = reactive({
   red: [],
   blue: []
+})
+
+watch(currentOptional, (newValue, oldValue) => {
+  currentOptional.red = currentOptional.red.sort((a,b) => a-b)
+  currentOptional.blue = currentOptional.blue.sort((a,b) => a-b)
 })
 
 const handleSelectRed = (value) => {
